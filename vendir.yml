@@ -21,3 +21,8 @@ directories:
       path: vendor/gateway-api-state-metrics/config/default
     excludePaths:
       - kustomization.yaml
+- path: dashboards/gateway-api/src
+  contents:
+  - path: .
+    directory:
+      path: vendor/gateway-api-state-metrics/src/dashboards

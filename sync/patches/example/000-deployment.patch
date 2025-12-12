@@ -1,0 +1,23 @@
+diff --git b/helm/external-dns-app/templates/deployment.yaml a/helm/external-dns-app/templates/deployment.yaml
+index 5c3e112..a03da7f 100644
+--- b/helm/external-dns-app/templates/deployment.yaml
++++ a/helm/external-dns-app/templates/deployment.yaml
+@@ -19,7 +19,7 @@ spec:
+   template:
+     metadata:
+       labels:
+-        {{- include "external-dns.selectorLabels" . | nindent 8 }}
++        {{- include "external-dns.labels" . | nindent 8 }}
+       {{- with .Values.podLabels }}
+         {{- toYaml . | nindent 8 }}
+       {{- end }}
+@@ -45,6 +45,9 @@ spec:
+       securityContext:
+         {{- toYaml . | nindent 8 }}
+       {{- end }}
++      {{- if .Values.hostNetwork }}
++      hostNetwork: true
++      {{- end }}
+       {{- with .Values.priorityClassName }}
+       priorityClassName: {{ . | quote }}
+       {{- end }}
