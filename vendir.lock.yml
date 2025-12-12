@@ -20,4 +20,8 @@ directories:
   - directory: {}
     path: .
   path: dashboards/gateway-api/src
+- contents:
+  - directory: {}
+    path: .
+  path: dashboards/envoy-gateway
 kind: LockConfig

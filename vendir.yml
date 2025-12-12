@@ -26,3 +26,8 @@ directories:
   - path: .
     directory:
       path: vendor/gateway-api-state-metrics/src/dashboards
+- path: dashboards/envoy-gateway
+  contents:
+  - path: .
+    directory:
+      path: vendor/envoy-gateway-addons/dashboards
