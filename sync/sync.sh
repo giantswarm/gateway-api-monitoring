@@ -7,6 +7,9 @@ set -o pipefail
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly dir
 cd "${dir}/.."
 
+# Build merger tool
+make -C hack/merger
+
 # Stage 1 sync
 set -x
 vendir sync
@@ -16,5 +19,5 @@ vendir sync
 find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 
 # Patches
-#./sync/patches/example/patch.sh
+./sync/patches/dashboards-envoy-gateway/patch.sh
 

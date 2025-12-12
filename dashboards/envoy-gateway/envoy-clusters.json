@@ -10,7 +10,7 @@
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
+        "name": "Annotations \u0026 Alerts",
         "type": "dashboard"
       }
     ]
@@ -1640,6 +1640,32 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "uid": "$datasource"
+        },
+        "definition": "label_values(kubernetes_build_info, cluster_id)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Workload Cluster",
+        "multi": false,
+        "name": "workload_cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(kubernetes_build_info, cluster_id)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
@@ -1674,7 +1700,7 @@
     ]
   },
   "timezone": "",
-  "title": "Envoy Clusters",
+  "title": "Envoy Gateway | Clusters",
   "uid": "8WkEOMnANKE6PW5hhpVv",
   "version": 1,
   "weekStart": ""
