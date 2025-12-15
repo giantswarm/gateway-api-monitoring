@@ -1,0 +1,286 @@
+{
+  "title": "Envoy Gateway | Proxy",
+  "panels": [
+    {
+      "id": 37,
+      "targets": [
+        {
+          "expr": "sum(envoy_server_live{cluster_id=\"$workload_cluster\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "targets": [
+        {
+          "expr": "avg by(pod) (envoy_server_uptime{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "targets": [
+        {
+          "expr": "sum by(pod) (envoy_server_memory_heap_size{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "targets": [
+        {
+          "expr": "sum by(pod) (envoy_server_memory_allocated{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_http_downstream_rq_total{cluster_id=\"$workload_cluster\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_http_downstream_cx_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.9, sum by(le) (rate(envoy_http_downstream_rq_time_bucket{cluster_id=\"$workload_cluster\"}[5m])))",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.5, sum by(le) (rate(envoy_http_downstream_rq_time_bucket{cluster_id=\"$workload_cluster\"}[5m])))",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum by(le) (rate(envoy_http_downstream_rq_time_bucket{cluster_id=\"$workload_cluster\"}[5m])))",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (envoy_listener_downstream_cx_active{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_tcp_downstream_cx_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_tcp_downstream_cx_rx_bytes_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_tcp_downstream_cx_tx_bytes_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_cluster_upstream_rq_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_cluster_upstream_cx_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m])) by (namespace)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(envoy_cluster_upstream_rq_time_bucket{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m])) by (le, namespace))",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.9, sum(rate(envoy_cluster_upstream_rq_time_bucket{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m])) by (le, namespace))",
+          "refId": "C"
+        },
+        {
+          "expr": "histogram_quantile(0.5, sum(rate(envoy_cluster_upstream_rq_time_bucket{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m])) by (le, namespace))",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "targets": [
+        {
+          "expr": "sum(envoy_cluster_upstream_cx_active{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}) by (namespace)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_cluster_upstream_cx_rx_bytes_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(envoy_cluster_upstream_cx_tx_bytes_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{cluster_id=\"$workload_cluster\", envoy_response_code_class=~\"2\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{cluster_id=\"$workload_cluster\", envoy_response_code_class=~\"3\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{cluster_id=\"$workload_cluster\", envoy_response_code_class=\"4\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "targets": [
+        {
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{cluster_id=\"$workload_cluster\", envoy_response_code_class=\"5\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "targets": [
+        {
+          "expr": "avg(envoy_cluster_membership_healthy{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}) by (namespace) / avg(envoy_cluster_membership_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}) by (namespace)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (envoy_cluster_membership_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (envoy_cluster_membership_healthy{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "targets": [
+        {
+          "expr": "sum by(namespace) (envoy_cluster_membership_total{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"}) - sum by(namespace) (envoy_cluster_membership_healthy{cluster_id=\"$workload_cluster\", namespace=~\"$Namespace\"})",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "uid": "$datasource"
+        },
+        "definition": "label_values(kubernetes_build_info, cluster_id)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Cluster",
+        "multi": false,
+        "name": "workload_cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(kubernetes_build_info, cluster_id)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "definition": "label_values(envoy_cluster_upstream_rq_time_bucket{cluster_id=\"$workload_cluster\"}, namespace)",
+        "name": "Namespace",
+        "label": "Namespace",
+        "query": {
+          "query": "label_values(envoy_cluster_upstream_rq_time_bucket{cluster_id=\"$workload_cluster\"}, namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        }
+      }
+    ]
+  }
+}
+
