@@ -1,0 +1,33 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: vendor
+  contents:
+  - path: gateway-api-state-metrics
+    git:
+      url: https://github.com/Kuadrant/gateway-api-state-metrics
+      ref: refs/tags/0.7.1
+      depth: 1
+  - path: envoy-gateway-addons
+    helmChart:
+      name: gateway-addons-helm
+      version: 1.5.6
+      repository:
+        url: oci://registry-1.docker.io/envoyproxy
+- path: ksm/gateway-api
+  contents:
+  - path: .
+    directory:
+      path: vendor/gateway-api-state-metrics/config/default
+    excludePaths:
+      - kustomization.yaml
+- path: dashboards/gateway-api/src
+  contents:
+  - path: .
+    directory:
+      path: vendor/gateway-api-state-metrics/src/dashboards
+- path: dashboards/envoy-gateway
+  contents:
+  - path: .
+    directory:
+      path: vendor/envoy-gateway-addons/dashboards
