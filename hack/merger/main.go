@@ -62,7 +62,7 @@ func main() {
 
 // deepMerge recursively merges patch into original.
 // - For maps: recursively merge, patch values override original
-// - For slices with objects containing "name" field: merge by name (update existing, add new)
+// - For slices with objects containing "name", "id", or "refId" field: merge by that key (update existing, add new)
 // - For other values: patch overrides original
 func deepMerge(original, patch map[string]any) map[string]any {
 	result := make(map[string]any)
@@ -103,20 +103,30 @@ func deepMerge(original, patch map[string]any) map[string]any {
 	return result
 }
 
-// mergeSlices merges two slices. If elements have a "name" field, merge by name.
+// mergeSlices merges two slices. If elements have a "name", "id", or "refId" field, merge by that key.
 // Otherwise, append patch elements to original.
 func mergeSlices(original, patch []any) []any {
 	// Check if we can merge by "name"
-	if canMergeByName(original) && canMergeByName(patch) {
-		return mergeByName(original, patch)
+	if canMergeByKey(original, "name") && canMergeByKey(patch, "name") {
+		return mergeByKey(original, patch, "name")
+	}
+
+	// Check if we can merge by "id"
+	if canMergeByKey(original, "id") && canMergeByKey(patch, "id") {
+		return mergeByKey(original, patch, "id")
+	}
+
+	// Check if we can merge by "refId"
+	if canMergeByKey(original, "refId") && canMergeByKey(patch, "refId") {
+		return mergeByKey(original, patch, "refId")
 	}
 
 	// Default: append patch to original
 	return append(original, patch...)
 }
 
-// canMergeByName checks if all elements in the slice are maps with a "name" field
-func canMergeByName(slice []any) bool {
+// canMergeByKey checks if all elements in the slice are maps with the specified key field
+func canMergeByKey(slice []any, key string) bool {
 	if len(slice) == 0 {
 		return true
 	}
@@ -125,21 +135,21 @@ func canMergeByName(slice []any) bool {
 		if !ok {
 			return false
 		}
-		if _, hasName := m["name"]; !hasName {
+		if _, hasKey := m[key]; !hasKey {
 			return false
 		}
 	}
 	return true
 }
 
-// mergeByName merges slices by the "name" field of each element
-func mergeByName(original, patch []any) []any {
-	// Build index of original items by name
-	origByName := make(map[string]int)
+// mergeByKey merges slices by the specified key field of each element
+func mergeByKey(original, patch []any, key string) []any {
+	// Build index of original items by key
+	origByKey := make(map[any]int)
 	for i, item := range original {
 		m := item.(map[string]any)
-		name := m["name"].(string)
-		origByName[name] = i
+		keyVal := m[key]
+		origByKey[keyVal] = i
 	}
 
 	// Create result with original items
@@ -149,9 +159,9 @@ func mergeByName(original, patch []any) []any {
 	// Process patch items
 	for _, patchItem := range patch {
 		patchMap := patchItem.(map[string]any)
-		name := patchMap["name"].(string)
+		keyVal := patchMap[key]
 
-		if idx, exists := origByName[name]; exists {
+		if idx, exists := origByKey[keyVal]; exists {
 			// Merge with existing item
 			origMap := result[idx].(map[string]any)
 			result[idx] = deepMerge(origMap, patchMap)
