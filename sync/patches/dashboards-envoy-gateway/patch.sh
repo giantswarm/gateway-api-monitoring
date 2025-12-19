@@ -44,10 +44,6 @@ add_promql_label_filter() {
     yq -i -o json --prettyPrint \
         '(.panels[] | select(.type != "row") | .targets[].expr) |= sub("(\w)\{\}", "${1}{cluster_id=\"$$workload_cluster\"}")' \
         "$file"
-    # Panels: handle no filters - metric followed by ) -> metric{cluster_id="$workload_cluster"})
-    yq -i -o json --prettyPrint \
-        '(.panels[] | select(.type != "row") | .targets[].expr) |= sub("(\w)\)", "${1}{cluster_id=\"$$workload_cluster\"})")' \
-        "$file"
     # Panels: handle no filters - metric followed by [ (range) -> metric{cluster_id="$workload_cluster"}[
     yq -i -o json --prettyPrint \
         '(.panels[] | select(.type != "row") | .targets[].expr) |= sub("(\w)\[", "${1}{cluster_id=\"$$workload_cluster\"}[")' \
