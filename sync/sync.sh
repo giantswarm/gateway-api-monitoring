@@ -7,9 +7,6 @@ set -o pipefail
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) ; readonly dir
 cd "${dir}/.."
 
-# Build merger tool
-make -C hack/merger
-
 # Stage 1 sync
 set -x
 vendir sync

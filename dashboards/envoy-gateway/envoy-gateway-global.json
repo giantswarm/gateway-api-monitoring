@@ -10,7 +10,7 @@
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations \u0026 Alerts",
+        "name": "Annotations & Alerts",
         "type": "dashboard"
       }
     ]
@@ -3043,16 +3043,15 @@
           "type": "prometheus",
           "uid": "$datasource"
         },
-        "definition": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"}, namespace)",
+        "definition": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"},namespace)",
         "hide": 0,
         "includeAll": false,
-        "label": "Namespace",
         "multi": false,
         "name": "Namespace",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"}, namespace)",
+          "query": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"},namespace)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -3076,16 +3075,15 @@
           "type": "prometheus",
           "uid": "$datasource"
         },
-        "definition": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"}, runner)",
+        "definition": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"},runner)",
         "hide": 0,
         "includeAll": true,
-        "label": "Runner",
         "multi": true,
         "name": "Runner",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"}, runner)",
+          "query": "label_values(watchable_depth{cluster_id=\"$workload_cluster\"},runner)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -3129,7 +3127,7 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Envoy Gateway | Controller",
+  "title": "Envoy Gateway | Global",
   "uid": "bdn8lriao7myoa",
   "version": 1,
   "weekStart": ""
