@@ -68,13 +68,13 @@ add_promql_label_filter() {
     yq -i -o json --prettyPrint \
         '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+),", "label_values(${1}{cluster_id=\"$$workload_cluster\"},")' \
         "$file"
-    # Handle: label_values(metric) -> label_values(metric{cluster_id="$workload_cluster"})
-    # Match metric name followed by ) - no filters present, single argument
+    # Handle: label_values(name) -> label_values({cluster_id="$workload_cluster"}, name)
+    # Match label name followed by ) - no filters present, single argument
     yq -i -o json --prettyPrint \
-        '(.templating.list[] | select(.name != "datasource") | .definition) |= sub("label_values\((\w+)\)", "label_values(${1}{cluster_id=\"$$workload_cluster\"})")' \
+        '(.templating.list[] | select(.name != "datasource") | .definition) |= sub("label_values\((\w+)\)", "label_values({cluster_id=\"$$workload_cluster\"}, ${1})")' \
         "$file"
     yq -i -o json --prettyPrint \
-        '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+)\)", "label_values(${1}{cluster_id=\"$$workload_cluster\"})")' \
+        '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+)\)", "label_values({cluster_id=\"$$workload_cluster\"}, ${1})")' \
         "$file"
 }
 
