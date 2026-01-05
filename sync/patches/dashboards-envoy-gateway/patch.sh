@@ -108,7 +108,7 @@ add_workload_cluster_variable() {
             "sort": 1,
             "type": "query"
         } as $wc |
-        .templating.list = [.templating.list[0]] + [$wc] + [.templating.list[1,2,3,4]]
+        .templating.list += [$wc]
     ' "$file"
 }
 
