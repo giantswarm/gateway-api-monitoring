@@ -81,10 +81,35 @@ add_promql_label_filter() {
 # Add workload_cluster variable to .templating.list (appended at the end)
 add_workload_cluster_variable() {
     local file="$1"
-    local new_var='{"current":{"selected":false,"text":"","value":""},"datasource":{"uid":"$datasource"},"definition":"label_values(kubernetes_build_info, cluster_id)","hide":0,"includeAll":false,"label":"Cluster","multi":false,"name":"workload_cluster","options":[],"query":{"query":"label_values(kubernetes_build_info, cluster_id)","refId":"PrometheusVariableQueryEditor-VariableQuery"},"refresh":1,"regex":"","skipUrlSync":false,"sort":1,"type":"query"}'
-    yq -i -o json --prettyPrint \
-        ".templating.list += [$new_var]" \
-        "$file"
+    yq -i -o json --prettyPrint '
+        {
+            "current": {
+                "selected": false,
+                "text": "",
+                "value": ""
+            },
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "definition": "label_values(kubernetes_build_info, cluster_id)",
+            "hide": 0,
+            "includeAll": false,
+            "label": "Workload Cluster",
+            "multi": false,
+            "name": "workload_cluster",
+            "options": [],
+            "query": {
+                "query": "label_values(kubernetes_build_info, cluster_id)",
+                "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+        } as $wc |
+        .templating.list = [.templating.list[0]] + [$wc] + [.templating.list[1,2,3,4]]
+    ' "$file"
 }
 
 # ------------------------------------------------------------------------------
