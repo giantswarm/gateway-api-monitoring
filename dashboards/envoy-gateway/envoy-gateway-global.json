@@ -3104,7 +3104,7 @@
         "definition": "label_values(kubernetes_build_info, cluster_id)",
         "hide": 0,
         "includeAll": false,
-        "label": "Cluster",
+        "label": "Workload Cluster",
         "multi": false,
         "name": "workload_cluster",
         "options": [],

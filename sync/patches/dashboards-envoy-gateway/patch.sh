@@ -68,23 +68,48 @@ add_promql_label_filter() {
     yq -i -o json --prettyPrint \
         '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+),", "label_values(${1}{cluster_id=\"$$workload_cluster\"},")' \
         "$file"
-    # Handle: label_values(metric) -> label_values(metric{cluster_id="$workload_cluster"})
-    # Match metric name followed by ) - no filters present, single argument
+    # Handle: label_values(name) -> label_values({cluster_id="$workload_cluster"}, name)
+    # Match label name followed by ) - no filters present, single argument
     yq -i -o json --prettyPrint \
-        '(.templating.list[] | select(.name != "datasource") | .definition) |= sub("label_values\((\w+)\)", "label_values(${1}{cluster_id=\"$$workload_cluster\"})")' \
+        '(.templating.list[] | select(.name != "datasource") | .definition) |= sub("label_values\((\w+)\)", "label_values({cluster_id=\"$$workload_cluster\"}, ${1})")' \
         "$file"
     yq -i -o json --prettyPrint \
-        '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+)\)", "label_values(${1}{cluster_id=\"$$workload_cluster\"})")' \
+        '(.templating.list[] | select(.name != "datasource") | .query.query) |= sub("label_values\((\w+)\)", "label_values({cluster_id=\"$$workload_cluster\"}, ${1})")' \
         "$file"
 }
 
 # Add workload_cluster variable to .templating.list (appended at the end)
 add_workload_cluster_variable() {
     local file="$1"
-    local new_var='{"current":{"selected":false,"text":"","value":""},"datasource":{"uid":"$datasource"},"definition":"label_values(kubernetes_build_info, cluster_id)","hide":0,"includeAll":false,"label":"Cluster","multi":false,"name":"workload_cluster","options":[],"query":{"query":"label_values(kubernetes_build_info, cluster_id)","refId":"PrometheusVariableQueryEditor-VariableQuery"},"refresh":1,"regex":"","skipUrlSync":false,"sort":1,"type":"query"}'
-    yq -i -o json --prettyPrint \
-        ".templating.list += [$new_var]" \
-        "$file"
+    yq -i -o json --prettyPrint '
+        {
+            "current": {
+                "selected": false,
+                "text": "",
+                "value": ""
+            },
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "definition": "label_values(kubernetes_build_info, cluster_id)",
+            "hide": 0,
+            "includeAll": false,
+            "label": "Workload Cluster",
+            "multi": false,
+            "name": "workload_cluster",
+            "options": [],
+            "query": {
+                "query": "label_values(kubernetes_build_info, cluster_id)",
+                "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+        } as $wc |
+        .templating.list += [$wc]
+    ' "$file"
 }
 
 # ------------------------------------------------------------------------------
