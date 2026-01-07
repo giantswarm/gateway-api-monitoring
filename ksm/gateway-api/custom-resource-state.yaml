@@ -1,19 +1,17 @@
-kind: CustomResourceStateMetrics
-spec:
-  resources:
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "Gateway"
-        version: "v1beta1"
-      metricNamePrefix: gatewayapi_gateway
-      labelsFromPath:
-        name:
+resources:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "Gateway"
+      version: "v1beta1"
+    metricNamePrefix: gatewayapi_gateway
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "info"
         help: "Gateway information"
         each:
@@ -53,7 +51,7 @@ spec:
               port: ["port"]
               protocol: ["protocol"]
               hostname: ["hostname"]
-              tls_mode: ["tls","mode"]
+              tls_mode: ["tls", "mode"]
               allowed_routes_namespaces_from: ["allowedRoutes", "namespaces", "from"]
       - name: "status"
         help: "status condition"
@@ -82,16 +80,16 @@ spec:
             labelsFromPath:
               type: ["type"]
               value: ["value"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "GatewayClass"
-        version: "v1beta1"
-      metricNamePrefix: gatewayapi_gatewayclass
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "GatewayClass"
+      version: "v1beta1"
+    metricNamePrefix: gatewayapi_gatewayclass
+    labelsFromPath:
+      name:
         - metadata
         - name
-      metrics:
+    metrics:
       - name: "info"
         help: "GatewayClass information"
         each:
@@ -137,19 +135,19 @@ spec:
             path: [status, supportedFeatures]
             labelsFromPath:
               features: []
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "HTTPRoute"
-        version: "v1beta1"
-      metricNamePrefix: gatewayapi_httproute
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "HTTPRoute"
+      version: "v1beta1"
+    metricNamePrefix: gatewayapi_httproute
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -206,19 +204,19 @@ spec:
               parent_namespace: ["parentRef", "namespace"]
               parent_section_name: ["parentRef", "sectionName"]
               parent_port: ["parentRef", "port"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "GRPCRoute"
-        version: "v1alpha2"
-      metricNamePrefix: gatewayapi_grpcroute
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "GRPCRoute"
+      version: "v1alpha2"
+    metricNamePrefix: gatewayapi_grpcroute
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -275,19 +273,19 @@ spec:
               parent_namespace: ["parentRef", "namespace"]
               parent_section_name: ["parentRef", "sectionName"]
               parent_port: ["parentRef", "port"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "TCPRoute"
-        version: "v1alpha2"
-      metricNamePrefix: gatewayapi_tcproute
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "TCPRoute"
+      version: "v1alpha2"
+    metricNamePrefix: gatewayapi_tcproute
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -336,19 +334,19 @@ spec:
               parent_namespace: ["parentRef", "namespace"]
               parent_section_name: ["parentRef", "sectionName"]
               parent_port: ["parentRef", "port"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "TLSRoute"
-        version: "v1alpha2"
-      metricNamePrefix: gatewayapi_tlsroute
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "TLSRoute"
+      version: "v1alpha2"
+    metricNamePrefix: gatewayapi_tlsroute
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -405,19 +403,19 @@ spec:
               parent_namespace: ["parentRef", "namespace"]
               parent_section_name: ["parentRef", "sectionName"]
               parent_port: ["parentRef", "port"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "UDPRoute"
-        version: "v1alpha2"
-      metricNamePrefix: gatewayapi_udproute
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "UDPRoute"
+      version: "v1alpha2"
+    metricNamePrefix: gatewayapi_udproute
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -466,19 +464,19 @@ spec:
               parent_namespace: ["parentRef", "namespace"]
               parent_section_name: ["parentRef", "sectionName"]
               parent_port: ["parentRef", "port"]
-    - groupVersionKind:
-        group: gateway.networking.k8s.io
-        kind: "BackendTLSPolicy"
-        version: "v1alpha2"
-      metricNamePrefix: gatewayapi_backendtlspolicy
-      labelsFromPath:
-        name:
+  - groupVersionKind:
+      group: gateway.networking.k8s.io
+      kind: "BackendTLSPolicy"
+      version: "v1alpha2"
+    metricNamePrefix: gatewayapi_backendtlspolicy
+    labelsFromPath:
+      name:
         - metadata
         - name
-        namespace:
+      namespace:
         - metadata
         - namespace
-      metrics:
+    metrics:
       - name: "labels"
         help: "Kubernetes labels converted to Prometheus labels."
         each:
@@ -511,3 +509,18 @@ spec:
               target_kind: ["kind"]
               target_name: ["name"]
               target_namespace: ["namespace"]
+rbac:
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - "gateways"
+      - "gatewayclasss"
+      - "httproutes"
+      - "grpcroutes"
+      - "tcproutes"
+      - "tlsroutes"
+      - "udproutes"
+      - "backendtlspolicys"
+    verbs:
+      - list
+      - watch

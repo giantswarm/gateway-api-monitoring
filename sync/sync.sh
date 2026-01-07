@@ -17,4 +17,5 @@ find vendor/ -type f -exec sed -i 's/[[:space:]]*$//' {} \;
 
 # Patches
 ./sync/patches/dashboards-envoy-gateway/patch.sh
+./sync/patches/ksm-gateway-api/patch.sh
 
