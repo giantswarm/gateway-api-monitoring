@@ -43,6 +43,9 @@ patch_gateway_api_state() {
             "verbs": ["list", "watch"]
         }
     ]'
+
+    # Remove "labels" metrics from each resource
+    yq_patch "$file" '.resources[].metrics |= map(select(.name != "labels"))'
 }
 
 # ------------------------------------------------------------------------------
@@ -52,5 +55,7 @@ patch_gateway_api_state() {
 set -x
 
 patch_gateway_api_state
+
+mv "${ksm_base}/custom-resource-state.yaml" "${ksm_base}/gateweway_networking_k8s_io.yaml"
 
 { set +x; } 2>/dev/null

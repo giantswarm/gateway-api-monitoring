@@ -19,14 +19,6 @@ resources:
           info:
             labelsFromPath:
               gatewayclass_name: [spec, gatewayClassName]
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -97,14 +89,6 @@ resources:
           info:
             labelsFromPath:
               controller_name: [spec, controllerName]
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -148,14 +132,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -217,14 +193,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -286,14 +254,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -347,14 +307,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -416,14 +368,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
@@ -477,14 +421,6 @@ resources:
         - metadata
         - namespace
     metrics:
-      - name: "labels"
-        help: "Kubernetes labels converted to Prometheus labels."
-        each:
-          type: Info
-          info:
-            path: [metadata]
-            labelsFromPath:
-              "*": [labels]
       - name: "created"
         help: "created timestamp"
         each:
