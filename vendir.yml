@@ -11,7 +11,7 @@ directories:
   - path: envoy-gateway-addons
     helmChart:
       name: gateway-addons-helm
-      version: 1.6.1
+      version: 1.6.2
       repository:
         url: oci://registry-1.docker.io/envoyproxy
 - path: ksm/gateway-api

@@ -8,8 +8,8 @@ directories:
       - 0.7.1
     path: gateway-api-state-metrics
   - helmChart:
-      appVersion: v1.6.1
-      version: 1.6.1
+      appVersion: v1.6.2
+      version: 1.6.2
     path: envoy-gateway-addons
   path: vendor
 - contents:
